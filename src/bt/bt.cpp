@@ -17,6 +17,20 @@ static String btName = "HC Soundbox";
 volatile esp_a2d_connection_state_t btConnectionState = ESP_A2D_CONNECTION_STATE_DISCONNECTED;
 volatile esp_a2d_audio_state_t btAudioState = ESP_A2D_AUDIO_STATE_STOPPED;
 volatile bool btNeedsRedraw = true;
+static volatile uint16_t btSampleRateHz = 44100;
+static volatile uint16_t btRequestedSampleRateHz = 44100;
+static volatile bool btSampleRateReinitPending = false;
+
+static void onBtSampleRateChanged(uint16_t sample_rate) {
+    // Laptops commonly use 48kHz while phones often use 44.1kHz.
+    // If we keep I2S fixed at 44.1kHz, 48kHz audio will play slower/lower pitch and drift/skip.
+    if(sample_rate == 0) return;
+    if(sample_rate == btSampleRateHz) return;
+
+    // Don't touch I2S inside the BT callback context; just request a re-init.
+    btRequestedSampleRateHz = sample_rate;
+    btSampleRateReinitPending = true;
+}
 
 void onBtConnectionStateChanged(esp_a2d_connection_state_t state, void*) {
     btConnectionState = state;
@@ -55,16 +69,21 @@ void startBluetoothMode(const char* deviceName) {
     if(deviceName && deviceName[0] != '\0') btName = deviceName;
     if(!btInitialized) {
         btI2S.setPins(26, 25, 27);
-        btI2S.begin(I2S_MODE_STD, 44100, I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_STEREO, I2S_STD_SLOT_BOTH);
+        btSampleRateHz = 44100;
+        btRequestedSampleRateHz = btSampleRateHz;
+        btSampleRateReinitPending = false;
+        btI2S.begin(I2S_MODE_STD, btSampleRateHz, I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_STEREO, I2S_STD_SLOT_BOTH);
 
         // Use queued output to decouple BT callback timing from I2S writes.
-        a2dpSink.set_i2s_ringbuffer_size(48 * 1024);
-        a2dpSink.set_i2s_ringbuffer_prefetch_percent(70);
-        a2dpSink.set_i2s_write_size_upto(4096);
-        a2dpSink.set_i2s_ticks(10);
+        // Laptops often push higher bitrate SBC; give the I2S writer more breathing room.
+        a2dpSink.set_i2s_ringbuffer_size(96 * 1024);
+        a2dpSink.set_i2s_ringbuffer_prefetch_percent(80);
+        a2dpSink.set_i2s_write_size_upto(8192);
+        a2dpSink.set_i2s_ticks(20);
 
         a2dpSink.set_on_connection_state_changed(onBtConnectionStateChanged);
         a2dpSink.set_on_audio_state_changed_post(onBtAudioStateChanged);
+        a2dpSink.set_sample_rate_callback(onBtSampleRateChanged);
         a2dpSink.set_avrc_rn_volumechange(onBtVolumeChanged);
         a2dpSink.set_auto_reconnect(false);
         a2dpSink.set_volume(constrain(map(volume, 0, 100, 0, 127), 0, 127));
@@ -82,6 +101,17 @@ void startBluetoothMode(const char* deviceName) {
 
 bool handleBluetoothMode() {
     if(!btModeActive) return false;
+
+    if(btSampleRateReinitPending) {
+        const uint16_t target = btRequestedSampleRateHz;
+        btSampleRateReinitPending = false;
+        if(target != 0 && target != btSampleRateHz) {
+            btSampleRateHz = target;
+            btI2S.end();
+            btI2S.setPins(26, 25, 27);
+            btI2S.begin(I2S_MODE_STD, btSampleRateHz, I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_STEREO, I2S_STD_SLOT_BOTH);
+        }
+    }
 
     int rotaryReadings = readRotary();
     if(rotaryReadings != 0) {
