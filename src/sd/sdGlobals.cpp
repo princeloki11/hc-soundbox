@@ -1,0 +1,13 @@
+#include "sdGlobals.h"
+
+AudioFileSourceSD* source = nullptr;
+AudioGeneratorMP3* mp3Decoder = nullptr;
+AudioGeneratorWAV* wavDecoder = nullptr;
+
+DirContents dirContents = {nullptr, 0, nullptr};
+SongInfo songInfo = {"", "", "", 0, 0, false, 0, 0};
+
+bool userStopped = false;
+TaskHandle_t audioTaskHandle = NULL;
+volatile bool stopAudio = false;
+String currentDir = "/";

@@ -1,0 +1,118 @@
+#include <Arduino.h>
+#include <ESP_I2S.h>
+#include <BluetoothA2DPSinkQueued.h>
+
+#include "bt.h"
+#include "../globals/globals.h"
+#include "../display/display.h"
+#include "../helpers/helpers.h"
+
+I2SClass btI2S;
+BluetoothA2DPSinkQueued a2dpSink(btI2S);
+
+bool btModeActive = false;
+bool btInitialized = false;
+// Keep the Bluetooth device name in stable storage (avoid dangling pointers).
+static String btName = "HC Soundbox";
+volatile esp_a2d_connection_state_t btConnectionState = ESP_A2D_CONNECTION_STATE_DISCONNECTED;
+volatile esp_a2d_audio_state_t btAudioState = ESP_A2D_AUDIO_STATE_STOPPED;
+volatile bool btNeedsRedraw = true;
+
+void onBtConnectionStateChanged(esp_a2d_connection_state_t state, void*) {
+    btConnectionState = state;
+    btNeedsRedraw = true;
+}
+
+void onBtAudioStateChanged(esp_a2d_audio_state_t state, void*) {
+    btAudioState = state;
+    btNeedsRedraw = true;
+}
+
+void onBtVolumeChanged(int vol) {
+    // Library reports volume as percent (0..100).
+    volume = constrain(vol, 0, 100);
+    btNeedsRedraw = true;
+}
+
+String connectionStateText() {
+    if(btConnectionState == ESP_A2D_CONNECTION_STATE_CONNECTED) return "Connected";
+    if(btConnectionState == ESP_A2D_CONNECTION_STATE_CONNECTING) return "Connecting";
+    if(btConnectionState == ESP_A2D_CONNECTION_STATE_DISCONNECTING) return "Disconnecting";
+    return "Disconnected";
+}
+
+void drawBluetoothScreen() {
+    // Snapshot volatile/shared state once for a consistent frame.
+    const esp_a2d_connection_state_t conn = btConnectionState;
+    const int vol = constrain(volume, 0, 100);
+    const bool isConnected = (conn == ESP_A2D_CONNECTION_STATE_CONNECTED);
+    ::drawBluetoothScreen(isConnected, vol);
+}
+
+void startBluetoothMode(const char* deviceName) {
+    if(btModeActive) return;
+
+    if(deviceName && deviceName[0] != '\0') btName = deviceName;
+    if(!btInitialized) {
+        btI2S.setPins(26, 25, 27);
+        btI2S.begin(I2S_MODE_STD, 44100, I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_STEREO, I2S_STD_SLOT_BOTH);
+
+        // Use queued output to decouple BT callback timing from I2S writes.
+        a2dpSink.set_i2s_ringbuffer_size(48 * 1024);
+        a2dpSink.set_i2s_ringbuffer_prefetch_percent(70);
+        a2dpSink.set_i2s_write_size_upto(4096);
+        a2dpSink.set_i2s_ticks(10);
+
+        a2dpSink.set_on_connection_state_changed(onBtConnectionStateChanged);
+        a2dpSink.set_on_audio_state_changed_post(onBtAudioStateChanged);
+        a2dpSink.set_avrc_rn_volumechange(onBtVolumeChanged);
+        a2dpSink.set_auto_reconnect(false);
+        a2dpSink.set_volume(constrain(map(volume, 0, 100, 0, 127), 0, 127));
+        a2dpSink.start(btName.c_str(), false);
+        btInitialized = true;
+    } else {
+        a2dpSink.start(btName.c_str(), false);
+    }
+
+    btConnectionState = ESP_A2D_CONNECTION_STATE_CONNECTING;
+    btAudioState = ESP_A2D_AUDIO_STATE_STOPPED;
+    btNeedsRedraw = true;
+    btModeActive = true;
+}
+
+bool handleBluetoothMode() {
+    if(!btModeActive) return false;
+
+    int rotaryReadings = readRotary();
+    if(rotaryReadings != 0) {
+        if(rotaryReadings == 1 && volume < 100) volume = min(100, volume + 2);
+        else if(rotaryReadings == -1 && volume > 0) volume = max(0, volume - 2);
+
+        a2dpSink.set_volume(constrain(map(volume, 0, 100, 0, 127), 0, 127));
+        btNeedsRedraw = true;
+    }
+
+    backBtn.update();
+    if(backBtn.pressed()) {
+        stopBluetoothMode();
+        return true;
+    }
+
+    if(btNeedsRedraw) {
+        // Clear first so async callbacks during draw aren't lost.
+        btNeedsRedraw = false;
+        drawBluetoothScreen();
+    }
+
+    delay(1);
+    return false;
+}
+
+void stopBluetoothMode() {
+    if(!btModeActive) return;
+    a2dpSink.end(false);
+    btConnectionState = ESP_A2D_CONNECTION_STATE_DISCONNECTED;
+    btAudioState = ESP_A2D_AUDIO_STATE_STOPPED;
+    btNeedsRedraw = true;
+    btModeActive = false;
+}
