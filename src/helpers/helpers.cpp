@@ -40,6 +40,42 @@ void awaitSdInit() {
     }
 }
 
+// Like awaitSdInit(), but lets user cancel with Back button.
+// Returns true when SD is initialized, false when cancelled.
+bool awaitSdInitOrBack() {
+    SD.end();
+
+    // IMPORTANT: SD.begin() can block long enough to miss a quick tap.
+    // We also watch a latched flag set by an interrupt so "tap Back" is reliable.
+    backBtnLatched = false;
+
+    while(true) {
+        if(backBtnLatched) {
+            backBtnLatched = false;
+            return false;
+        }
+
+        // Keep Bounce2 state reasonably fresh too (used elsewhere).
+        backBtn.update();
+        if(backBtn.pressed()) {
+            backBtnLatched = false;
+            return false;
+        }
+
+        if(SD.begin(SD_CS)) return true;
+
+        // If the user pressed Back while SD.begin() was blocking,
+        // the ISR will have latched it for us.
+        if(backBtnLatched) {
+            backBtnLatched = false;
+            return false;
+        }
+
+        delay(10);
+        yield();
+    }
+}
+
 // Function to get current rotary encoder state
 int readRotary() {
     static int lastState = 0;

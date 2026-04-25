@@ -36,4 +36,6 @@ const uint8_t clkPin = 32;
 Bounce2::Button swRotary;
 Bounce2::Button backBtn;
 
+volatile bool backBtnLatched = false;
+
 Adafruit_SSD1306 display(128, 64, &Wire, -1);

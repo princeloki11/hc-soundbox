@@ -36,7 +36,9 @@ bool handleSongPicker() {
 
             while(!updateDirContents(newDir.c_str())) {
                 showInsertSdMessage();
-                awaitSdInit();
+                if(!awaitSdInitOrBack()) {
+                    return true;
+                }
             }
             drawFileMenu();
         }
@@ -81,7 +83,9 @@ bool handleSongPicker() {
 
             while(!updateDirContents(newDir.c_str())) {
                 showInsertSdMessage();
-                awaitSdInit();
+                if(!awaitSdInitOrBack()) {
+                    return true;
+                }
             }
             drawFileMenu();
         }

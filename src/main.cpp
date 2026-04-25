@@ -19,6 +19,18 @@ String modeItems[] = {"SD Card", "Bluetooth"};
 const int modeItemCount = 2;
 const char* bluetoothName = "HC Soundbox";
 
+void drawModeMenu();
+
+#if defined(ARDUINO_ARCH_ESP32)
+#define HC_ISR_ATTR IRAM_ATTR
+#else
+#define HC_ISR_ATTR
+#endif
+
+static void HC_ISR_ATTR onBackBtnFalling() {
+    backBtnLatched = true;
+}
+
 void initSdAudioOutput() {
     if(output == nullptr) {
         output = new AudioOutputI2S();
@@ -49,7 +61,13 @@ void handleModeSelect() {
             initSdAudioOutput();
             while(true) {
                 showInsertSdMessage();
-                awaitSdInit();
+                // Allow user to go back to the mode menu while waiting for SD.
+                if(!awaitSdInitOrBack()) {
+                    releaseSdAudioOutput();
+                    appMode = MODE_SELECT;
+                    drawModeMenu();
+                    return;
+                }
                 if(updateDirContents(currentDir.c_str())) break;
             }
             menuState.selectedIndex = 0;
@@ -78,6 +96,7 @@ void setup() {
 
     backBtn.attach(backBtnPin, INPUT_PULLUP);
     backBtn.interval(debounceInterval);
+    attachInterrupt(digitalPinToInterrupt(backBtnPin), onBackBtnFalling, FALLING);
 
     if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
         Serial.println("OLED failed");

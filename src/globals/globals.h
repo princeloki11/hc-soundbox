@@ -53,5 +53,9 @@ extern const uint8_t clkPin;
 extern Bounce2::Button swRotary;
 extern Bounce2::Button backBtn;
 
+// Latched back button press (set from interrupt) so presses can't be missed
+// during long/blocking operations (e.g. SD.begin()).
+extern volatile bool backBtnLatched;
+
 // OLED
 extern Adafruit_SSD1306 display;
