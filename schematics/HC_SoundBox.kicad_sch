@@ -3620,12 +3620,6 @@
 		(uuid "25960c82-9d3b-4b9b-81a5-ef40b6335036")
 	)
 	(junction
-		(at 205.74 95.25)
-		(diameter 0)
-		(color 0 0 0 1)
-		(uuid "269d7499-6f08-4276-906a-70c5ccf42ecf")
-	)
-	(junction
 		(at 90.17 91.44)
 		(diameter 0)
 		(color 0 0 0 1)
@@ -3686,6 +3680,12 @@
 		(uuid "86928b97-7235-414d-9b17-abe4bab32174")
 	)
 	(junction
+		(at 207.01 74.93)
+		(diameter 0)
+		(color 255 0 0 1)
+		(uuid "91a4c514-cc2b-4820-922c-a0361683f03a")
+	)
+	(junction
 		(at 100.33 118.11)
 		(diameter 0)
 		(color 255 0 0 1)
@@ -3696,6 +3696,12 @@
 		(diameter 0)
 		(color 255 0 0 1)
 		(uuid "ab9d7981-2b89-42e4-b819-3237eb8f38aa")
+	)
+	(junction
+		(at 205.74 95.25)
+		(diameter 0)
+		(color 0 0 0 1)
+		(uuid "b56a357f-f446-46f7-937b-68ec63f01abc")
 	)
 	(junction
 		(at 111.76 105.41)
@@ -3984,6 +3990,17 @@
 	)
 	(wire
 		(pts
+			(xy 208.28 95.25) (xy 205.74 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 0 0 0 1)
+		)
+		(uuid "2e908f11-a575-48a8-9726-e3bbd7c80ea0")
+	)
+	(wire
+		(pts
 			(xy 177.8 74.93) (xy 158.75 74.93)
 		)
 		(stroke
@@ -4013,17 +4030,6 @@
 			(type default)
 		)
 		(uuid "340dc0ee-78f3-4c35-aaed-be793a018015")
-	)
-	(wire
-		(pts
-			(xy 205.74 59.69) (xy 205.74 95.25)
-		)
-		(stroke
-			(width 0)
-			(type default)
-			(color 0 0 0 1)
-		)
-		(uuid "3805deb8-8e92-4102-b0e4-b4363e369a39")
 	)
 	(wire
 		(pts
@@ -4135,6 +4141,17 @@
 	)
 	(wire
 		(pts
+			(xy 205.74 91.44) (xy 205.74 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 0 0 0 1)
+		)
+		(uuid "42fcd9f8-24da-4181-be86-3255b4ff40a9")
+	)
+	(wire
+		(pts
 			(xy 171.45 80.01) (xy 171.45 95.25)
 		)
 		(stroke
@@ -4168,6 +4185,17 @@
 	)
 	(wire
 		(pts
+			(xy 207.01 83.82) (xy 207.01 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 255 0 0 1)
+		)
+		(uuid "4ba2f941-f6af-4180-a90a-00bd21db5210")
+	)
+	(wire
+		(pts
 			(xy 163.83 132.08) (xy 163.83 97.79)
 		)
 		(stroke
@@ -4198,6 +4226,28 @@
 			(color 132 132 0 1)
 		)
 		(uuid "5267dcd4-3568-4aa1-9fe6-c9e90ab2dcd4")
+	)
+	(wire
+		(pts
+			(xy 204.47 83.82) (xy 207.01 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 255 0 0 1)
+		)
+		(uuid "55af7e75-51b8-488a-bccf-f49ed13f8616")
+	)
+	(wire
+		(pts
+			(xy 204.47 91.44) (xy 205.74 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 0 0 0 1)
+		)
+		(uuid "58677b28-8c91-43a0-a58a-0e4a06606190")
 	)
 	(wire
 		(pts
@@ -4442,6 +4492,17 @@
 	)
 	(wire
 		(pts
+			(xy 207.01 74.93) (xy 209.55 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 255 0 0 1)
+		)
+		(uuid "8a128a83-0571-40c8-b361-737b72b6539c")
+	)
+	(wire
+		(pts
 			(xy 205.74 132.08) (xy 205.74 121.92)
 		)
 		(stroke
@@ -4497,7 +4558,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 74.93) (xy 209.55 74.93)
+			(xy 204.47 74.93) (xy 207.01 74.93)
 		)
 		(stroke
 			(width 0)
@@ -4781,7 +4842,7 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 59.69) (xy 205.74 59.69)
+			(xy 158.75 59.69) (xy 208.28 59.69)
 		)
 		(stroke
 			(width 0)
@@ -4965,6 +5026,17 @@
 			(color 132 132 132 1)
 		)
 		(uuid "f6559bb8-1ecc-42c9-9ff5-1a0729f16888")
+	)
+	(wire
+		(pts
+			(xy 208.28 59.69) (xy 208.28 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 0 0 0 1)
+		)
+		(uuid "f7947108-0ebd-41c0-99dd-aedc1e3f6950")
 	)
 	(wire
 		(pts
@@ -6938,6 +7010,85 @@
 			(project "HC_SoundBox"
 				(path "/8affcf08-7ea6-4c06-a2bd-de2bfdf79792"
 					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized")
+		(at 204.47 87.63 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "dcad8a74-ac36-4969-8edc-84204b0168ce")
+		(property "Reference" "C3"
+			(at 201.422 82.804 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "470uF"
+			(at 203.2 80.518 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 205.4352 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 204.47 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Polarized capacitor"
+			(at 204.47 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e5d1e653-9daa-4ba2-818f-b23e04e4f21c")
+		)
+		(pin "2"
+			(uuid "746f18f2-d36d-4395-b752-1bda1df191a6")
+		)
+		(instances
+			(project "HC_SoundBox"
+				(path "/8affcf08-7ea6-4c06-a2bd-de2bfdf79792"
+					(reference "C3")
 					(unit 1)
 				)
 			)

@@ -4,7 +4,7 @@ namespace {
 constexpr uint8_t RED_PIN = 14;
 constexpr uint8_t GREEN_PIN = 15;
 constexpr uint8_t BLUE_PIN = 13;
-// Per-channel calibration (0..255). Reduce green and red because it appears brighter.
+// Per-channel calibration (0..255). Reduce green because it appears brighter.
 constexpr uint8_t RED_LEVEL = 140;
 constexpr uint8_t GREEN_LEVEL = 45;
 constexpr uint8_t BLUE_LEVEL = 255;
@@ -44,9 +44,6 @@ void initRgb() {
     pinMode(RED_PIN, OUTPUT);
     pinMode(GREEN_PIN, OUTPUT);
     pinMode(BLUE_PIN, OUTPUT);
-    analogWriteResolution(RED_PIN, 8);
-    analogWriteResolution(GREEN_PIN, 8);
-    analogWriteResolution(BLUE_PIN, 8);
     setRgbWhite();
 }
 
