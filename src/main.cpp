@@ -11,6 +11,7 @@
 #include "sd/sdState.h"
 #include "sd/sdMenu.h"
 #include "bt/bt.h"
+#include "rgb/rgb.h"
 
 enum AppMode { MODE_SELECT, MODE_SD, MODE_BLUETOOTH };
 AppMode appMode = MODE_SELECT;
@@ -84,10 +85,12 @@ void handleModeSelect() {
 
 void drawModeMenu() {
     drawMenu("Select Mode", modeItems, modeItemCount, modeMenuState.selectedIndex, 0, selectedScroll);
+    setRgbWhite();
 }
 
 void setup() {
     Serial.begin(115200);
+    initRgb();
 
     pinMode(clkPin, INPUT_PULLUP);
     pinMode(dtPin, INPUT_PULLUP);
@@ -111,17 +114,34 @@ void setup() {
 
 void loop() {
     if(appMode == MODE_SELECT) {
+        setRgbWhite();
         handleModeSelect();
     }
     else if(appMode == MODE_SD) {
+        const bool isPlaying = (songInfo.format != "" && !songInfo.paused && !stopAudio);
+        if(isPlaying) {
+            setRgbRainbow(true);
+            updateRgb();
+        } else {
+            setRgbRainbow(false);
+            setRgbGreen();
+        }
+
         if(handleSdMode()) {
+            setRgbRainbow(false);
+            setRgbWhite();
             drawModeMenu();
             appMode = MODE_SELECT;
         }
     }
     else if(appMode == MODE_BLUETOOTH) {
+        setRgbRainbow(false);
+        if(isBluetoothConnected()) setRgbBlue();
+        else setRgbRed();
+
         if(handleBluetoothMode()) {
             initSdAudioOutput();
+            setRgbWhite();
             drawModeMenu();
             appMode = MODE_SELECT;
         }

@@ -146,3 +146,7 @@ void stopBluetoothMode() {
     btNeedsRedraw = true;
     btModeActive = false;
 }
+
+bool isBluetoothConnected() {
+    return btConnectionState == ESP_A2D_CONNECTION_STATE_CONNECTED;
+}

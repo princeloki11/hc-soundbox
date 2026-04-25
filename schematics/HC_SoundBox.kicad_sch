@@ -1121,6 +1121,146 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:Speaker"
 			(pin_numbers
 				(hide yes)
@@ -3618,10 +3758,6 @@
 		(uuid "6bd68a3d-b1c4-4a1d-8068-266ca19bbd14")
 	)
 	(no_connect
-		(at 158.75 110.49)
-		(uuid "742597cb-c922-4edb-83bc-e4fc042ea8f7")
-	)
-	(no_connect
 		(at 158.75 115.57)
 		(uuid "808da3d9-aa47-4d31-9628-201a484fd19e")
 	)
@@ -3644,10 +3780,6 @@
 	(no_connect
 		(at 158.75 105.41)
 		(uuid "c03b6cd3-46cd-4e74-9b9d-c801b51d0879")
-	)
-	(no_connect
-		(at 111.76 125.73)
-		(uuid "ca7f0601-c77c-460e-8b01-5ffcbdd65e3c")
 	)
 	(no_connect
 		(at 179.07 92.71)
@@ -3686,6 +3818,16 @@
 			(color 0 255 255 1)
 		)
 		(uuid "077446e9-e086-491b-9f39-3cd3677f8638")
+	)
+	(wire
+		(pts
+			(xy 118.11 127) (xy 144.78 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07c20374-ac99-4586-b417-cfae8da383f3")
 	)
 	(wire
 		(pts
@@ -3777,6 +3919,16 @@
 	)
 	(wire
 		(pts
+			(xy 111.76 124.46) (xy 111.76 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e4940fd-32bc-47b1-904f-f3c2298103bf")
+	)
+	(wire
+		(pts
 			(xy 90.17 83.82) (xy 100.33 83.82)
 		)
 		(stroke
@@ -3854,6 +4006,16 @@
 	)
 	(wire
 		(pts
+			(xy 158.75 110.49) (xy 165.1 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "340dc0ee-78f3-4c35-aaed-be793a018015")
+	)
+	(wire
+		(pts
 			(xy 205.74 59.69) (xy 205.74 95.25)
 		)
 		(stroke
@@ -3873,6 +4035,17 @@
 			(color 194 194 0 1)
 		)
 		(uuid "38351904-3ada-4aad-9d02-884b3b2387db")
+	)
+	(wire
+		(pts
+			(xy 96.52 123.19) (xy 96.52 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 194 0 0 1)
+		)
+		(uuid "384ab8d1-726f-44b7-97e6-dd520ad6af1f")
 	)
 	(wire
 		(pts
@@ -3898,6 +4071,16 @@
 	)
 	(wire
 		(pts
+			(xy 118.11 124.46) (xy 111.76 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d6ab6da-afec-4fbc-a003-b215b7fc3979")
+	)
+	(wire
+		(pts
 			(xy 113.03 100.33) (xy 118.11 100.33)
 		)
 		(stroke
@@ -3906,6 +4089,27 @@
 			(color 194 0 0 1)
 		)
 		(uuid "3ec19f13-3727-4a6c-b876-7ef3f725e8b4")
+	)
+	(wire
+		(pts
+			(xy 118.11 127) (xy 118.11 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4041b15f-6755-4f53-bb5c-eecbc2020207")
+	)
+	(wire
+		(pts
+			(xy 115.57 115.57) (xy 115.57 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 0 0 255 1)
+		)
+		(uuid "41dd2242-4e17-40f2-8581-e7f6447b2bbb")
 	)
 	(wire
 		(pts
@@ -4195,6 +4399,16 @@
 	)
 	(wire
 		(pts
+			(xy 152.4 127) (xy 165.1 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7e8d6fbc-fc5d-4f00-9509-1704d06914a6")
+	)
+	(wire
+		(pts
 			(xy 168.91 114.3) (xy 168.91 77.47)
 		)
 		(stroke
@@ -4214,17 +4428,6 @@
 			(color 132 132 132 1)
 		)
 		(uuid "81e83bd0-fb9b-43bc-a7a7-c2fe963092e1")
-	)
-	(wire
-		(pts
-			(xy 115.57 107.95) (xy 115.57 125.73)
-		)
-		(stroke
-			(width 0)
-			(type default)
-			(color 0 0 255 1)
-		)
-		(uuid "8757c5cc-235c-402a-8ee0-2300e750c94f")
 	)
 	(wire
 		(pts
@@ -4338,6 +4541,16 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 110.49) (xy 165.1 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9b93c55a-ecfb-44fe-b2e0-ffdaac386380")
+	)
+	(wire
+		(pts
 			(xy 118.11 59.69) (xy 134.62 59.69)
 		)
 		(stroke
@@ -4448,6 +4661,17 @@
 	)
 	(wire
 		(pts
+			(xy 106.68 123.19) (xy 96.52 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 194 0 0 1)
+		)
+		(uuid "b9a51001-5e36-424d-aeb4-891dff0d82cd")
+	)
+	(wire
+		(pts
 			(xy 118.11 54.61) (xy 118.11 59.69)
 		)
 		(stroke
@@ -4547,14 +4771,13 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 125.73) (xy 106.68 116.84)
+			(xy 104.14 125.73) (xy 106.68 125.73)
 		)
 		(stroke
 			(width 0)
 			(type default)
-			(color 194 0 0 1)
 		)
-		(uuid "c78c0f88-cb95-4243-b88b-bdb2ffe0592c")
+		(uuid "cace63c3-7ec9-4bfb-bf05-624ac9ddc846")
 	)
 	(wire
 		(pts
@@ -4665,6 +4888,17 @@
 			(color 0 0 0 1)
 		)
 		(uuid "dd54445e-2088-4d5f-abb3-8c83436e8c64")
+	)
+	(wire
+		(pts
+			(xy 106.68 116.84) (xy 106.68 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+			(color 194 0 0 1)
+		)
+		(uuid "ddfb39b1-bb61-465c-8ae5-087a7c80c160")
 	)
 	(wire
 		(pts
@@ -4839,6 +5073,85 @@
 			(project "HC_SoundBox"
 				(path "/8affcf08-7ea6-4c06-a2bd-de2bfdf79792"
 					(reference "SW2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 148.59 127 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "079f60fa-0476-45cf-a457-0438eaa7dad6")
+		(property "Reference" "R2"
+			(at 148.59 129.54 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 148.59 132.08 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 148.59 128.778 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 148.59 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 148.59 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "6f0795d5-349e-41ae-838e-9ece621c70e6")
+		)
+		(pin "1"
+			(uuid "c9fcc28f-9692-49cf-9cf0-5bf5814c52fd")
+		)
+		(instances
+			(project "HC_SoundBox"
+				(path "/8affcf08-7ea6-4c06-a2bd-de2bfdf79792"
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -5756,6 +6069,85 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 115.57 111.76 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "703ba761-d5bf-4d7e-9673-6238ee663911")
+		(property "Reference" "R3"
+			(at 113.03 110.49 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 113.03 112.522 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 117.348 111.76 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 115.57 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 115.57 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "2693cf00-d345-4b04-8c83-9f2b3ed94fb8")
+		)
+		(pin "1"
+			(uuid "58a79816-ee27-441a-b477-c6845484dc9b")
+		)
+		(instances
+			(project "HC_SoundBox"
+				(path "/8affcf08-7ea6-4c06-a2bd-de2bfdf79792"
+					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Switch:SW_Push")
 		(at 168.91 144.78 0)
 		(unit 1)
@@ -6467,6 +6859,85 @@
 			(project "HC_SoundBox"
 				(path "/8affcf08-7ea6-4c06-a2bd-de2bfdf79792"
 					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 100.33 125.73 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "db334f78-4d0e-46a9-bc86-d78d1f9aba00")
+		(property "Reference" "R1"
+			(at 99.314 128.524 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 99.314 131.064 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 100.33 127.508 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 100.33 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 100.33 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "2eb4010b-ec72-4606-92c2-d5cc06c4690e")
+		)
+		(pin "1"
+			(uuid "e1e058b0-a081-49c9-9c51-e13878e7722f")
+		)
+		(instances
+			(project "HC_SoundBox"
+				(path "/8affcf08-7ea6-4c06-a2bd-de2bfdf79792"
+					(reference "R1")
 					(unit 1)
 				)
 			)
