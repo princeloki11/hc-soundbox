@@ -162,6 +162,14 @@ void handlePlayingPage() {
                 fileName = dirContents.fileNames[menuState.selectedIndex + 1];
                 menuState.selectedIndex++;
             }
+            // Keep the highlighted item visible when returning to the file list
+            // after auto-advancing through tracks.
+            if(menuState.selectedIndex < menuState.scrollOffset) {
+                menuState.scrollOffset = menuState.selectedIndex;
+            }
+            if(menuState.selectedIndex >= menuState.scrollOffset + maxViewableItems) {
+                menuState.scrollOffset = menuState.selectedIndex - maxViewableItems + 1;
+            }
 
             String fileFormat = getFileFormat(fileName);
 
