@@ -62,6 +62,11 @@ void setRgbGreen() {
     writeRgb(0, 255, 0);
 }
 
+void setRgbPurple() {
+    rainbowEnabled = false;
+    writeRgb(255, 0, 255);
+}
+
 void setRgbBlue() {
     rainbowEnabled = false;
     writeRgb(0, 0, 255);

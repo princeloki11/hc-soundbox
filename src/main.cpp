@@ -124,7 +124,7 @@ void loop() {
             updateRgb();
         } else {
             setRgbRainbow(false);
-            setRgbGreen();
+            setRgbPurple();
         }
 
         if(handleSdMode()) {
