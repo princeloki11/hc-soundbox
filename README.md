@@ -142,6 +142,7 @@ See the [Hardware Connections](#-hardware-connections) section below.
 | Speaker | 1 | Compatible with your DAC |
 | microSD Module | 1 | SPI interface |
 | microSD Card | 1 | Any size |
+| RGB LED | 1 |  |
 
 ### 🔌 Hardware Connections
 
@@ -193,6 +194,14 @@ See the [Hardware Connections](#-hardware-connections) section below.
 | SCK | GPIO 18 |
 | VCC | 3.3V |
 | GND | GND |
+
+#### RGB LED
+
+| LED Pin | ESP32 Pin |
+|--------|-----------|
+| Red | GPIO 14 |
+| Green | GPIO 15 |
+| Blue | GPIO 13 |
 
 ---
 
