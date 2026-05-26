@@ -60,6 +60,7 @@ void handleModeSelect() {
         if(modeMenuState.selectedIndex == 0) {
             appMode = MODE_SD;
             initSdAudioOutput();
+            currentDir = "/";
             while(true) {
                 showInsertSdMessage();
                 // Allow user to go back to the mode menu while waiting for SD.

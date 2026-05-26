@@ -81,11 +81,21 @@ void audioTask(void* param) {
     while(running && !stopAudio) {
         if(songInfo.format == "mp3") running = mp3Decoder->loop();
         else running = wavDecoder->loop();
+        if(!running && !stopAudio && !userStopped) {
+            // Decoder stopped on its own without user requesting it.
+            // This means the SD card was pulled or a read error occurred.
+            // Silence output immediately before the task cleanup to stop glitching.
+            output->SetGain(0);
+            sdCardRemoved = true;
+            stopAudio = true;
+        }
         vTaskDelay(1);
     }
+    if(output) output->SetGain(0);
     if(songInfo.format == "mp3") { mp3Decoder->stop(); delete mp3Decoder; }
     else { wavDecoder->stop(); delete wavDecoder; }
     delete source;
+    if(!sdCardRemoved) output->SetGain(volume / 100.0);
     stopAudio = true;
     audioTaskHandle = NULL;
     vTaskDelete(NULL);

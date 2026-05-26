@@ -148,7 +148,11 @@ void handlePlayingPage() {
         songInfo.format = "";
         stopAudio = false;
 
-        if(userStopped) {
+        if(sdCardRemoved) {
+            // Card was pulled - bail out to mode menu via handleSdMode return value
+            return;
+        }
+        else if(userStopped) {
             userStopped = false;
             drawFileMenu();
         }
@@ -208,6 +212,10 @@ void handlePlayingPage() {
 
 bool handleSdMode() {
     if(songInfo.format == "") {
+        if(sdCardRemoved) {
+            sdCardRemoved = false;
+            return true;
+        }
         return handleSongPicker();
     }
     else handlePlayingPage();
