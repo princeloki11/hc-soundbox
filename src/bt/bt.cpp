@@ -68,6 +68,12 @@ void startBluetoothMode(const char* deviceName) {
 
     if(deviceName && deviceName[0] != '\0') btName = deviceName;
     if(!btInitialized) {
+        // Guard against heap fragmentation crash in ringbuffer alloc
+        size_t freeHeap = heap_caps_get_largest_free_block(MALLOC_CAP_8BIT);
+        if(freeHeap < 48 * 1024) {
+            Serial.printf("[BT] Insufficient contiguous heap (%d bytes), restarting\n", freeHeap);
+            ESP.restart();
+        }
         btI2S.setPins(26, 25, 27);
         btSampleRateHz = 44100;
         btRequestedSampleRateHz = btSampleRateHz;
@@ -76,9 +82,11 @@ void startBluetoothMode(const char* deviceName) {
 
         // Use queued output to decouple BT callback timing from I2S writes.
         // Laptops often push higher bitrate SBC; give the I2S writer more breathing room.
-        a2dpSink.set_i2s_ringbuffer_size(96 * 1024);
-        a2dpSink.set_i2s_ringbuffer_prefetch_percent(80);
-        a2dpSink.set_i2s_write_size_upto(8192);
+        // Keep ringbuffer small enough to always fit in fragmented heap.
+        // 96KB was causing intermittent alloc failures after mode switches.
+        a2dpSink.set_i2s_ringbuffer_size(32 * 1024);
+        a2dpSink.set_i2s_ringbuffer_prefetch_percent(60);
+        a2dpSink.set_i2s_write_size_upto(4096);
         a2dpSink.set_i2s_ticks(20);
 
         a2dpSink.set_on_connection_state_changed(onBtConnectionStateChanged);
